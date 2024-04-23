@@ -1,0 +1,16 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "lua-local",
+			"request": "launch",
+			"name": "Launch",
+			"program": {
+				"command": "lua",
+			},
+			"args": [ "../cat.lua", "somedat.txt" ],
+			"cwd": "${workspaceFolder}/workdir"
+		}
+	],
+	"compounds": []
+}
