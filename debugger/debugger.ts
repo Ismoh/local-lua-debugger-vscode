@@ -1135,7 +1135,7 @@ export namespace Debugger {
     function debuggerAssert(v: unknown, ...args: unknown[]) {
         if (!v) {
             const message = args[0] !== undefined && args[0] || "assertion failed";
-            breakForError(message, 1, true);
+            breakForError(message, 2, true);
         }
         return $multi(v, ...args);
     }
