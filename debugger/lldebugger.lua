@@ -1583,7 +1583,27 @@ do
         return true
     end
     local function comparePaths(a, b)
-        return Path.getAbsolute(a):lower() == Path.getAbsolute(b):lower()
+        local isParentA = a:match(("^%.%.[/" .. Path.separator) .. "]")
+        local isParentB = b:match(("^%.%.[/" .. Path.separator) .. "]")
+        if isParentA or isParentB then
+            return Path.getAbsolute(a):lower() == Path.getAbsolute(b):lower()
+        end
+        local aLen = #a
+        local bLen = #b
+        if aLen == bLen then
+            return a == b
+        end
+        if bLen < aLen then
+            a, aLen, b = b, bLen, a
+        end
+        if a ~= b:sub(-aLen) then
+            return false
+        end
+        if a:sub(1, 1) == Path.separator then
+            return true
+        end
+        local bSep = -(aLen + 1)
+        return b:sub(bSep, bSep) == Path.separator
     end
     local debugHookStackOffset = 2
     local breakpointLookup = Breakpoint.getLookup()
