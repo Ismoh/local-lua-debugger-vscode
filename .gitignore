@@ -1,2 +1,5 @@
 **/*.vsix
+*.js
+*.map
+debugger/lldebugger.lua
 node_modules

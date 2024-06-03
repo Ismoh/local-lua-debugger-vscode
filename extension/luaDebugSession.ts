@@ -233,8 +233,9 @@ export class LuaDebugSession extends LoggingDebugSession {
 
         //Set an environment variable so the debugger can detect the attached extension
         processOptions.env[envVariable] = "1";
-        processOptions.env[filePathEnvVariable]
-            = `${this.config.extensionPath}${path.sep}debugger${path.sep}lldebugger.lua`;
+        processOptions.env[filePathEnvVariable] = path.join(
+            path.dirname(__dirname), 'debugger', 'lldebugger.lua'
+        );
 
         //Pass options via environment variables
         if (typeof this.config.scriptRoots !== "undefined") {
@@ -839,7 +840,7 @@ export class LuaDebugSession extends LoggingDebugSession {
             luaPath += ";";
         }
 
-        env[luaPathKey] = `${luaPath}${this.assert(this.config).extensionPath}/debugger/?.lua`;
+        env[luaPathKey] = `${luaPath}${path.dirname(__dirname)}/debugger/?.lua`;
     }
 
     private setBreakpoint(filePath: string, breakpoint: DebugProtocol.SourceBreakpoint) {
