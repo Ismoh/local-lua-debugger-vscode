@@ -33,3 +33,9 @@ if [[ "$prevVer" == "$newVer" ]]; then
     echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
     exit 1
 fi
+
+if [[ $(echo CHANGELOG.md) != *"$newVer"*  ]]; then
+    message='Unable to find actual changes in CHANGELOG.md. Do proper changes and rerun this job!'
+        echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
+        exit 1   echo "no 'fix:' or 'refactoring:' commit message found.."
+fi
