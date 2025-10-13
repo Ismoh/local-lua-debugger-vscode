@@ -1,7 +1,7 @@
 {
     "name": "second-local-lua-debugger-vscode",
     "publisher": "ismoh-games",
-    "version": "0.3.9",
+    "version": "0.3.10",
     "description": "Second Local Lua Debugger - simple Lua debugger with no dependencies - forked from https://github.com/tomblind/local-lua-debugger-vscode",
     "displayName": "Second Local Lua Debugger",
     "icon": "resources/Lua-Logo_128x128.png",
