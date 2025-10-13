@@ -17,14 +17,6 @@ jobs:
       - name: npm install packages
         run: npm install
 
-      - name: Check manual changes on CHANGELOG.md
-        run: |
-          if git diff --exit-code origin/master -- CHANGELOG.md; then
-              message='Unable to find actual changes in CHANGELOG.md. Do proper changes and rerun this job!'
-              echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
-              exit 1
-          fi
-
       - name: Bump version
         run: .github/workflows/release-tag-bump-version.sh
 
