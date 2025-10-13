@@ -23,7 +23,7 @@ jobs:
           
 
       - name: clean
-        run: rm debugger/*.lua; rm debugger/*.lua.map; rm extension/*.js; rm extension/*.js.map; rm *.vsix
+        run: rm -f debugger/*.lua; rm -f debugger/*.lua.map; rm -f extension/*.js; rm -f extension/*.js.map; rm -f *.vsix
 
       - name: npm run lint
         run: npm run lint
