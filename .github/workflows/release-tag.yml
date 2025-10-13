@@ -12,7 +12,7 @@ jobs:
         run: |
           if git diff --quiet CHANGELOG.md; then
             message='Unable to find actual changes in CHANGELOG.md. Do proper changes and rerun this job!'
-            echo "::error file={name},line={line},endLine={endLine},title={title}::{message}"
+            echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
             exit 1
           fi
 
@@ -43,7 +43,7 @@ jobs:
 
           if [[ "$prevVer" == "$newVer" ]]; then
             message='Unable to find actual version changes. Did you use proper conventional commit messages?'
-            echo "::error file={name},line={line},endLine={endLine},title={title}::{message}"
+            echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
             exit 1
           fi
 
