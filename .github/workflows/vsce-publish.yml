@@ -10,9 +10,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Install vsce
         run: npm install -g @vscode/vsce
-      - name: Install npm
+
+      - name: npm install packages
         run: npm install
+        
       - name: Publish to VSCode Marketplace
         run: npm run bundle && vsce publish -p ${{ secrets.AZURE_PAT }}

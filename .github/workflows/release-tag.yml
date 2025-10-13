@@ -11,8 +11,11 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Install vsce
+      - name: Install npm eslint
         run: npm install -g eslint
+
+      - name: npm install packages
+        run: npm install
 
       - name: Check manual changes on CHANGELOG.md
         run: |
