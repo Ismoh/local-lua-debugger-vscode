@@ -31,14 +31,8 @@ jobs:
       - name: clean
         run: rm -f debugger/*.lua; rm -f debugger/*.lua.map; rm -f extension/*.js; rm -f extension/*.js.map; rm -f *.vsix
 
-      - name: npm run lint
-        run: npm run lint
-
-      - name: npm run build
-        run: npm run build
-
-      - name: npm run bundle
-        run: npm bundle
+      - name: npm run lint, build and vsce package within npm run bundle
+        run: npm run bundle
 
       - uses: actions/upload-artifact@v4
         with:
