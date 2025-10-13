@@ -20,10 +20,10 @@
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/../../.vscode/extensions/ismoh-games.second-local-lua-debugger-vscode-0.3.6"
+				"--extensionDevelopmentPath=${workspaceFolder}/../../.vscode/extensions/ismoh-games.second-local-lua-debugger-vscode-0.3.9"
 			],
 			"outFiles": [
-				"${workspaceFolder}/../../.vscode/extensions/ismoh-games.second-local-lua-debugger-vscode-0.3.6/**/*.js"
+				"${workspaceFolder}/../../.vscode/extensions/ismoh-games.second-local-lua-debugger-vscode-0.3.9/**/*.js"
 			],
 			// "preLaunchTask": "npm: watch"
 		},
