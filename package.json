@@ -25,8 +25,8 @@
         "corona"
     ],
     "scripts": {
-        "lint-debugger": "cd debugger && eslint . && cd ..",
-        "lint-extension": "cd extension && eslint . && cd ..",
+        "lint-debugger": "cd debugger && eslint . --fix && cd ..",
+        "lint-extension": "cd extension && eslint . --fix && cd ..",
         "lint": "npm run lint-debugger && npm run lint-extension",
         "build-debugger": "tstl -p debugger",
         "build-extension": "tsc -p extension",

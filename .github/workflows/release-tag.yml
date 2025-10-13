@@ -10,49 +10,31 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
           fetch-tags: true
-      - name: Bump version
+      - name: Check manual changes on CHANGELOG.md
         run: |
-          if git diff --exit-code master -- CHANGELOG.md; then
-            message='Unable to find actual changes in CHANGELOG.md. Do proper changes and rerun this job!'
-            echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
-            exit 1
+          if git diff --exit-code origin/master -- CHANGELOG.md; then
+              message='Unable to find actual changes in CHANGELOG.md. Do proper changes and rerun this job!'
+              echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
+              exit 1
           fi
 
-          prevVer=$(node -p "require('./package.json').version")
-          echo "Current version: $prevVer"
+      - name: Bump version
+        run: .github/workflows/release-tag-bump-version.sh
+          
 
-          msgs=$(git log --oneline $(git describe --tags --abbrev=0)..HEAD)
+      - name: clean
+        run: rm debugger/*.lua; rm debugger/*.lua.map; rm extension/*.js; rm extension/*.js.map; rm *.vsix
 
-          echo ${msgs,,}
+      - name: npm run lint
+        run: npm run lint
 
-          if [[ ${msgs,,} =~ ^(fix|refactoring) ]]; then
-            npm --no-git-tag-version version patch
-          else
-            echo "no 'fix' or 'refactoring' commit message found.."
-          fi
+      - name: npm run build
+        run: npm run build
 
-          if [[ ${msgs,,} =~ ^(feat) ]]; then
-            npm --no-git-tag-version version minor
-          else
-            echo "no 'feat' commit meassage found.."
-          fi
+      - name: npm run bundle
+        run: npm bundle
 
-          if [[ ${msgs,,} =~ ^(breaking change|!) ]]; then
-            npm --no-git-tag-version version patch
-          else
-            echo "no 'BREAKING CHANGE' or '!' found.."
-          fi
-
-          newVer=$(node -p "require('./package.json').version")
-
-          if [[ "$prevVer" == "$newVer" ]]; then
-            message='Unable to find actual version changes. Did you use proper conventional commit messages?'
-            echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
-            exit 1
-          fi
-
-          #clean
-          rm debugger/*.lua; rm debugger/*.lua.map; rm extension/*.js; rm extension/*.js.map; rm *.vsix
-          npm lint
-          npm build
-          npm bundle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vsix
+          path: second-local-lua-debugger-vscode-*.vsix
