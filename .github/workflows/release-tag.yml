@@ -43,7 +43,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           releaseVer=$(node -p "require('./package.json').version")
-          git tag -a ${releaseVer} -m 'Bump new release version ${releaseVer} before publish'; git push origin ${releaseVer}; git push origin --tags
+          git tag -a v$releaseVer -m 'Bump new release version v$releaseVer before publish'; git push origin v$releaseVer; git push origin --tags
 
       - uses: actions/upload-artifact@v4
         with:
