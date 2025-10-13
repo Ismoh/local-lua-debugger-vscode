@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.4.0
+
+- feat: add GitHub action for easier release creation \
+    Refs: [#14](https://github.com/Ismoh/local-lua-debugger-vscode/issues/14)
+
 ## Version 0.3.9
 
 - fix: [#25](https://github.com/Ismoh/local-lua-debugger-vscode/issues/25): Change the error wrapper to pass the original error intact ([#26](https://github.com/Ismoh/local-lua-debugger-vscode/pull/26))

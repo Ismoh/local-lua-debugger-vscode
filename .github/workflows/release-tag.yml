@@ -1,0 +1,43 @@
+name: Release tag before publish
+on: workflow_dispatch
+jobs:
+  release-tag:
+    name: Create new release tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Install npm eslint
+        run: npm install -g eslint
+
+      - name: npm install packages
+        run: npm install
+
+      - name: Bump version
+        run: .github/workflows/release-tag-bump-version.sh
+
+      - name: clean
+        run: rm -f debugger/*.lua; rm -f debugger/*.lua.map; rm -f extension/*.js; rm -f extension/*.js.map; rm -f *.vsix
+
+      - name: npm run lint, build and vsce package within npm run bundle
+        run: npm run bundle
+
+      - name: Provide proper artifact name
+        run: |
+          echo "artifact_name=$(find second-local-lua-debugger-vscode-*)" >> $GITHUB_ENV
+
+      - name: Create and push new release tag
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          releaseVer=$(node -p "require('./package.json').version")
+          git tag -a release-v$releaseVer -m 'Bump new release version release-v$releaseVer before publish'; git push origin release-v$releaseVer; git push origin --tags
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact_name }}
+          path: second-local-lua-debugger-vscode-*.vsix
