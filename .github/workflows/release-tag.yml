@@ -36,7 +36,7 @@ jobs:
 
       - name: Provide proper artifact name
         run: |
-          echo "artifact_name=$(find second-local-lua-debugger-vscode-*)" >> GITHUB_ENV
+          echo "artifact_name=$(find second-local-lua-debugger-vscode-*)" >> $GITHUB_ENV
 
       - uses: actions/upload-artifact@v4
         with:
