@@ -10,6 +10,10 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
           fetch-tags: true
+
+      - name: Install vsce
+        run: npm install -g eslint
+
       - name: Check manual changes on CHANGELOG.md
         run: |
           if git diff --exit-code origin/master -- CHANGELOG.md; then
@@ -20,7 +24,6 @@ jobs:
 
       - name: Bump version
         run: .github/workflows/release-tag-bump-version.sh
-          
 
       - name: clean
         run: rm -f debugger/*.lua; rm -f debugger/*.lua.map; rm -f extension/*.js; rm -f extension/*.js.map; rm -f *.vsix
