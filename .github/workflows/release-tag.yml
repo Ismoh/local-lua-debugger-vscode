@@ -8,6 +8,8 @@ jobs:
       - uses: actions/checkout@master
         with:
           ref: ${{ github.ref }}
+          fetch-depth: 0
+          fetch-tags: true
       - name: Bump version
         run: |
           if git diff --exit-code master -- CHANGELOG.md; then
