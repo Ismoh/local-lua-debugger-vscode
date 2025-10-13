@@ -27,15 +27,16 @@ if [[ ${msgs,,} =~ (breaking change:|!:) ]]; then
 fi
 
 newVer=$(node -p "require('./package.json').version")
+echo "New version: $newVer"
 
 if [[ "$prevVer" == "$newVer" ]]; then
     message="Unable to find actual version changes. Did you use proper conventional commit messages? Available types/scopes: 'fix:', 'refactoring:', 'feat:', 'breaking changes:' or '<type/scope>!:'"
-    echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
+    echo "::error file=${name},line=${line},endLine=${endLine},title=${title}::${message}"
     exit 1
 fi
 
-if [[ $(echo CHANGELOG.md) != *"$newVer"*  ]]; then
-    message='Unable to find actual changes in CHANGELOG.md. Do proper changes and rerun this job!'
-        echo "::error file={name},line={line},endLine={endLine},title={title}::${message}"
-        exit 1   echo "no 'fix:' or 'refactoring:' commit message found.."
+if [[ ! "$(cat CHANGELOG.md)" =~ "$newVer"  ]]; then
+    message='Unable to find new version in CHANGELOG.md. Do proper changes and rerun this job!'
+    echo "::error file=${name},line=${line},endLine=${endLine},title=${title}::${message}"
+    exit 1
 fi
