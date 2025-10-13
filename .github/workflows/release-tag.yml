@@ -21,6 +21,8 @@ jobs:
 
           msgs=$(git log --oneline $(git describe --tags --abbrev=0)..HEAD)
 
+          echo ${msgs,,}
+
           if [[ ${msgs,,} =~ ^(fix|refactoring) ]]; then
             npm --no-git-tag-version version patch
           else
