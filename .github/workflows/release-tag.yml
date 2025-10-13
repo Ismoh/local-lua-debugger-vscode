@@ -38,6 +38,11 @@ jobs:
         run: |
           echo "artifact_name=$(find second-local-lua-debugger-vscode-*)" >> $GITHUB_ENV
 
+      - name: Create and push new release tag
+        run: |
+          releaseVer=$(node -p "require('./package.json').version")
+          git tag -a ${releaseVer} -m 'Bump new release version ${releaseVer} before publish'; git push origin ${releaseVer}; git push origin --tags
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_name }}
