@@ -35,7 +35,7 @@
         "publish": "npm run bundle && vsce publish"
     },
     "dependencies": {
-        "@vscode/debugadapter": "^1.67.0"
+        "@vscode/debugadapter": "^1.68.0"
     },
     "devDependencies": {
         "@types/node": "^16.4.13",
