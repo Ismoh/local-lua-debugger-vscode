@@ -32,6 +32,7 @@ import {
     OutputEvent,
     TerminatedEvent,
     StoppedEvent,
+    ContinuedEvent,
     Variable,
     Handles,
     ThreadEvent
@@ -577,12 +578,18 @@ export class LuaDebugSession extends LoggingDebugSession {
         this.sendResponse(response);
     }
 
+    private sendContinued(threadId: number) {
+        const evt: DebugProtocol.ContinuedEvent = new ContinuedEvent(threadId, true);
+        this.sendEvent(evt);
+    }
+
     protected continueRequest(response: DebugProtocol.ContinueResponse, args: DebugProtocol.ContinueArguments): void {
         this.showOutput("continueRequest", OutputCategory.Request);
         if (this.sendCommand("cont")) {
             this.variableHandles.reset();
             this.isRunning = true;
             this.inDebuggerBreakpoint = false;
+            this.sendContinued(args.threadId);
         } else {
             response.success = false;
         }
@@ -595,6 +602,7 @@ export class LuaDebugSession extends LoggingDebugSession {
             this.variableHandles.reset();
             this.isRunning = true;
             this.inDebuggerBreakpoint = false;
+            this.sendContinued(args.threadId);
         } else {
             response.success = false;
         }
@@ -607,6 +615,7 @@ export class LuaDebugSession extends LoggingDebugSession {
             this.variableHandles.reset();
             this.isRunning = true;
             this.inDebuggerBreakpoint = false;
+            this.sendContinued(args.threadId);
         } else {
             response.success = false;
         }
@@ -619,6 +628,7 @@ export class LuaDebugSession extends LoggingDebugSession {
             this.variableHandles.reset();
             this.isRunning = true;
             this.inDebuggerBreakpoint = false;
+            this.sendContinued(args.threadId);
         } else {
             response.success = false;
         }

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- fix: send a `continued` event after a continue or step the client requested, so a client that tracks the paused state from the `stopped` and `continued` events alone (DebugMCP) sees the program running again instead of paused forever
+
 ## Version 0.3.9
 
 - fix: [#25](https://github.com/Ismoh/local-lua-debugger-vscode/issues/25): Change the error wrapper to pass the original error intact ([#26](https://github.com/Ismoh/local-lua-debugger-vscode/pull/26))
